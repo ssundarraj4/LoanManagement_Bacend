@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,7 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@DataMongoTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class LoanRepositoryTest {
 
 	@Autowired
@@ -33,7 +36,7 @@ public class LoanRepositoryTest {
 
 		
 		loan = new Loan();
-		loan.setLoanNo(111);
+		loan.setLoanNo(1);
 		loan.setLoanAmount(500000);
 		loan.setLoanType("Personal Loan");
 		loan.setLoanTerm("2 years");
@@ -66,7 +69,7 @@ public class LoanRepositoryTest {
 
 	    	rep.save(loan);
 	    	Loan floan = rep.findById(loan.getLoanNo()).get();
-	        assertThat(111, is(floan.getLoanNo()));
+	        assertThat(1, is(floan.getLoanNo()));
 
 	    }
 
@@ -75,7 +78,7 @@ public class LoanRepositoryTest {
 
 	    	rep.save(loan);
 	    	Loan aloan = rep.findById(loan.getLoanNo()).get();
-	        assertThat(111, is(aloan.getLoanAmount()));
+	        assertThat(1, is(aloan.getLoanAmount()));
 	        rep.delete(aloan);
 
 	    }
@@ -85,12 +88,12 @@ public class LoanRepositoryTest {
 
 	    	rep.save(loan);
 	    	Loan floan = rep.findById(loan.getLoanNo()).get();
-	        assertThat(111, is(floan.getLoanNo()));
-	        floan.setCibilScore(500);
+	        assertThat(1, is(floan.getLoanNo()));
+	        floan.setLoanTerm("5 years");
 	        rep.save(floan);
 	        floan = rep.findById(loan.getLoanNo()).get();
-	        assertThat(500, is(floan.getCibilScore()));
-
+	        assertThat("5 years",is(floan.getLoanTerm()));
+	       
 
 	    }
 
@@ -99,7 +102,7 @@ public class LoanRepositoryTest {
 
 	    	rep.save(loan);
 	    	Loan floan = rep.findById(loan.getLoanNo()).get();
-	        assertThat(111, is(floan.getLoanNo()));
+	        assertThat(1, is(floan.getLoanNo()));
 	    }
 
 	    @Test
@@ -113,7 +116,7 @@ public class LoanRepositoryTest {
 	    	loan.setLoanType("Personal Loan");
 	    	rep.save(loan);
 	    	List<Loan> loans = rep.findAll();
-	        assertThat(loans.size(), is(2));
+	        assertThat(loans.size(), is(8));
 
 
 	    }

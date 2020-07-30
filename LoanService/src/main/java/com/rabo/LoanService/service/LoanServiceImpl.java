@@ -21,7 +21,7 @@ public class LoanServiceImpl implements LoanService {
 
 	@Override
 	public boolean addLoan(Loan loan) {
-		System.out.println("loan invoked");
+		
 		rep.save(loan);
 		
 		return true;

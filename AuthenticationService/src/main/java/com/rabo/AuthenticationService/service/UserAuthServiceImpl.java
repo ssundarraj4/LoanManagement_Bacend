@@ -11,7 +11,8 @@ import com.rabo.AuthenticationService.model.User;
 import com.rabo.AuthenticationService.repository.UserAuthRepository;
 
 @Service
-public class UserAuthServiceImpl implements UserAuthService {
+public class UserAuthServiceImpl implements UserAuthService 
+{
 
 	private UserAuthRepository userAuthRepository;
 

@@ -1,5 +1,7 @@
 package com.rabo.UserProfileService.service;
 
+import org.springframework.stereotype.Service;
+
 import com.rabo.UserProfileService.exception.UserProfileAlreadyExistsException;
 import com.rabo.UserProfileService.exception.UserProfileNotFoundException;
 import com.rabo.UserProfileService.model.UserProfile;
